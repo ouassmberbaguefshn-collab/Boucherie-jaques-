@@ -1,0 +1,512 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#581c27">
+<title>La Boucherie Jaques | Paris 11e</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root {
+  --wine:#581c27;
+  --wine-dark:#351018;
+  --green:#183d30;
+  --cream:#f7f1e6;
+  --paper:#fffdf8;
+  --gold:#c8a66a;
+  --ink:#241b19;
+  --muted:#746965;
+  --line:rgba(53,16,24,.15);
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --sans:"DM Sans",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:85px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6}
+button,input,textarea,select{font:inherit}
+button,a{cursor:pointer}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button:disabled{opacity:.5;cursor:not-allowed}
+.topbar{background:var(--green);color:white;text-align:center;padding:8px;font-size:12px;letter-spacing:1px}
+.topbar span{color:var(--gold)}
+header{position:sticky;top:0;z-index:10;background:#fffdf8f2;backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{max-width:1200px;margin:auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{width:42px;height:42px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;font:700 27px var(--serif);color:var(--wine)}
+.brand-name{display:block;font:700 23px/1 var(--serif);color:var(--wine)}
+.brand-sub{display:block;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:5px}
+.navlinks{display:flex;gap:23px;font-size:13px;font-weight:600}
+.navlinks a:hover{color:var(--wine)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 19px;border:0;border-radius:30px;font-size:13px;font-weight:700}
+.wine{background:var(--wine);color:white}
+.wine:hover{background:var(--wine-dark)}
+.green{background:var(--green);color:white}
+.cream-btn{background:var(--cream);color:var(--wine)}
+.outline{background:transparent;color:var(--wine);border:1px solid var(--line)}
+.menu{display:none;background:none;border:0;color:var(--wine);font-size:24px}
+.hero{position:relative;background:var(--wine-dark);color:var(--cream);overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#23080ef5 0%,#351018c9 50%,#35101830 100%),url("https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=1800&q=85") center/cover}
+.hero-inner{position:relative;max-width:1200px;margin:auto;min-height:550px;padding:85px 24px;display:flex;align-items:center}
+.hero-copy{max-width:650px}
+.eyebrow{color:var(--gold);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:3px}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.05}
+h1{font-size:clamp(55px,8vw,100px);margin:23px 0}
+h1 em{color:var(--gold);font-weight:400}
+.hero p{max-width:490px;color:#ffffffc9;font-size:15px;margin-bottom:28px}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.hero-points{display:flex;flex-wrap:wrap;gap:22px;margin-top:30px;font-size:12px;color:#ffffffbb}
+.hero-points span:first-letter{color:var(--gold)}
+.trust{background:var(--cream);padding:23px 20px;display:flex;justify-content:center;gap:65px;flex-wrap:wrap}
+.trust strong{display:block;font:600 20px var(--serif);color:var(--wine)}
+.trust small{font-size:11px;color:var(--muted)}
+.section{padding:78px 24px}
+.inner{max-width:1200px;margin:auto}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:30px}
+.section-head h2{font-size:clamp(42px,5vw,65px);color:var(--wine);margin:12px 0 0}
+.section-head p{max-width:390px;font-size:13px;color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:25px}
+.filter{background:transparent;border:1px solid var(--line);border-radius:25px;padding:9px 16px;color:var(--muted);font-size:12px;font-weight:700}
+.filter.active,.filter:hover{background:var(--green);color:white;border-color:var(--green)}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.card{background:white;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:.2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 15px 35px #35101815}
+.product-img{height:210px;background:var(--cream);position:relative}
+.product-img img{width:100%;height:100%;object-fit:cover}
+.tag{position:absolute;top:12px;left:12px;background:var(--cream);color:var(--green);border-radius:20px;padding:5px 10px;font-size:10px;font-weight:700}
+.product-info{padding:17px;display:flex;flex-direction:column;flex:1}
+.product-info h3{font-size:27px;color:var(--wine);margin:8px 0}
+.product-info p{font-size:12px;color:var(--muted);min-height:38px;margin-bottom:15px}
+.category-label{font-size:10px;color:var(--green);text-transform:uppercase;letter-spacing:1.5px;font-weight:700}
+.product-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto}
+.price{font:700 24px var(--serif);color:var(--wine)}
+.price small{font:11px var(--sans);color:var(--muted)}
+.add{width:39px;height:39px;border:0;border-radius:50%;background:var(--green);color:white;font-size:25px}
+.add:hover{background:var(--wine)}
+.empty{grid-column:1/-1;text-align:center;background:var(--cream);padding:35px;border-radius:14px;color:var(--muted)}
+.notice{font-size:11px;color:var(--muted);margin-top:15px}
+.story{background:var(--cream)}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:65px;align-items:center}
+.story-image{height:490px;position:relative;overflow:hidden;border-radius:3px 80px 3px 3px}
+.story-image img{width:100%;height:100%;object-fit:cover}
+.seal{position:absolute;right:20px;bottom:20px;background:var(--cream);border:1px solid var(--gold);border-radius:50%;width:105px;height:105px;display:grid;place-items:center;text-align:center;font:22px/1 var(--serif);color:var(--wine)}
+.story h2{font-size:clamp(42px,5vw,65px);color:var(--wine);margin:15px 0 22px}
+.story p{font-size:14px;color:var(--muted)}
+.points{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:25px 0}
+.point{border-top:1px solid #581c2730;padding-top:12px}
+.point strong{display:block;font:21px var(--serif);color:var(--wine)}
+.point small{color:var(--muted);font-size:11px}
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.visit-card{padding:30px;background:var(--cream);border-radius:16px}
+.visit-card h3{font-size:35px;color:var(--wine);margin:12px 0 20px}
+.visit-card p{font-size:13px;color:var(--muted)}
+.contact-line{display:flex;gap:12px;margin:17px 0}
+.contact-line b{color:var(--wine);display:block}
+.contact-line span{font-size:13px;color:var(--muted)}
+.hours{width:100%;border-collapse:collapse;font-size:13px}
+.hours td{padding:10px 0;border-bottom:1px solid var(--line)}
+.hours td:last-child{text-align:right;font-weight:700;color:var(--green)}
+.hours tr:last-child td{border:0}
+.cta{background:var(--green);color:var(--cream);padding:50px 24px}
+.cta-inner{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:25px}
+.cta h2{font-size:clamp(34px,4vw,52px);margin:0 0 10px}
+.cta p{font-size:13px;color:#ffffffb8;margin:0}
+footer{background:var(--wine-dark);color:#ffffffb8;padding:40px 24px 20px}
+.footer-inner{max-width:1200px;margin:auto}
+.footer-top,.footer-bottom{display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap}
+.footer-top{padding-bottom:25px;border-bottom:1px solid #ffffff25}
+.footer-desc{max-width:320px;font-size:12px;margin-top:15px}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap;font-size:12px}
+.footer-bottom{padding-top:17px;font-size:10px;color:#ffffff80}
+.admin-link{background:none;border:0;color:#ffffff90;text-decoration:underline;font-size:11px}
+.overlay{position:fixed;inset:0;background:#16070bb3;z-index:30;display:none}
+.overlay.open{display:block}
+.drawer{position:fixed;z-index:31;top:0;right:0;height:100dvh;width:min(440px,100%);background:var(--paper);transform:translateX(105%);transition:.25s;display:flex;flex-direction:column}
+.drawer.open{transform:translateX(0)}
+.drawer-head{padding:20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.drawer-head h2{font-size:32px;color:var(--wine);margin:0}
+.close{border:1px solid var(--line);background:transparent;border-radius:50%;width:36px;height:36px;font-size:23px;color:var(--wine)}
+.cart-items{padding:15px 22px;overflow:auto;flex:1}
+.cart-line{padding:14px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px}
+.cart-line strong{display:block;color:var(--wine);font:23px var(--serif)}
+.cart-line small{font-size:11px;color:var(--muted)}
+.qty{display:flex;align-items:center;gap:10px;margin-top:8px}
+.qty button{width:27px;height:27px;border:1px solid var(--line);border-radius:50%;background:white;color:var(--wine)}
+.drawer-foot{padding:20px;background:var(--cream)}
+.total{display:flex;justify-content:space-between;font-weight:700;color:var(--wine);margin-bottom:12px}
+.drawer-foot .btn{width:100%}
+.fine{font-size:10px;color:var(--muted);margin:12px 0}
+.modal-wrap{position:fixed;inset:0;z-index:40;display:none;place-items:center;padding:14px}
+.modal-wrap.open{display:grid}
+.modal{background:var(--paper);width:min(570px,100%);max-height:92dvh;overflow:auto;border-radius:16px}
+.modal.large{width:min(1100px,100%)}
+.modal-head{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.modal-head h2{font-size:32px;color:var(--wine);margin:0}
+.modal-body{padding:23px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.field.full{grid-column:1/-1}
+.field label{font-size:12px;font-weight:700;color:var(--wine)}
+.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);border-radius:9px;padding:11px;background:white;color:var(--ink)}
+.field textarea{min-height:80px}
+.error{font-size:12px;color:#a32032}
+.success{padding:12px;border-radius:9px;background:#e6f0e8;color:var(--green);font-size:13px;margin-bottom:12px}
+.detail{white-space:pre-wrap;background:var(--cream);padding:12px;border-radius:9px;font-size:12px;margin:12px 0}
+.hidden{display:none!important}
+.admin-login{max-width:430px;margin:auto;padding:25px}
+.admin-shell{display:grid;grid-template-columns:190px 1fr;min-height:450px}
+.admin-sidebar{background:var(--green);padding:15px}
+.admin-sidebar h3{font-size:27px;color:var(--cream);margin:8px}
+.admin-tab{display:block;width:100%;text-align:left;padding:11px;border:0;border-radius:8px;background:transparent;color:white;font-size:12px;margin:3px 0}
+.admin-tab.active,.admin-tab:hover{background:#ffffff22}
+.admin-content{padding:20px;min-width:0}
+.admin-content h3{font-size:35px;color:var(--wine);margin-bottom:4px}
+.admin-muted{font-size:12px;color:var(--muted)}
+.admin-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:15px 0}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}
+table.admin-table{border-collapse:collapse;width:100%;min-width:560px;background:white;font-size:11px}
+.admin-table th,.admin-table td{padding:10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+.admin-table th{background:var(--cream);color:var(--wine)}
+.admin-table select,.admin-table input{max-width:130px;padding:6px;border:1px solid var(--line);border-radius:6px}
+.mini{border:1px solid var(--line);background:white;color:var(--wine);border-radius:6px;padding:6px 8px;font-size:10px;margin:2px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}
+.stat{background:var(--cream);padding:12px;border-radius:9px}
+.stat strong{display:block;font:30px var(--serif);color:var(--wine)}
+.stat small{font-size:10px;color:var(--muted)}
+.toast{position:fixed;z-index:80;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--green);color:white;border-radius:30px;padding:12px 20px;font-size:12px;transition:.2s;max-width:90%;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:950px){.products{grid-template-columns:repeat(3,minmax(0,1fr))}.navlinks{gap:13px}.story-grid{gap:30px}}
+@media(max-width:700px){
+ .nav{padding:12px 15px}.navlinks{display:none;position:absolute;top:100%;left:0;right:0;background:var(--paper);padding:20px;flex-direction:column;border-bottom:1px solid var(--line)}.navlinks.open{display:flex}.menu{display:block}.brand-name{font-size:19px}.brand-sub{font-size:8px;letter-spacing:1px}
+ .hero-inner{min-height:500px;padding:65px 20px}.hero:before{background:linear-gradient(90deg,#23080ef2,#351018aa),url("https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=1000&q=80") center/cover}
+ .trust{gap:15px;align-items:flex-start;flex-direction:column;padding-left:25px}.section{padding:58px 17px}.section-head{display:block}.section-head p{margin-top:15px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.product-img{height:150px}.product-info{padding:12px}.product-info h3{font-size:22px}.product-info p{font-size:11px}.price{font-size:21px}.add{width:34px;height:34px}
+ .story-grid,.visit-grid{grid-template-columns:1fr;gap:25px}.story-image{height:330px}.story h2{font-size:45px}.visit-card{padding:23px}.cta-inner{align-items:flex-start;flex-direction:column}.footer-top{flex-direction:column}.admin-shell{grid-template-columns:1fr}.admin-sidebar{display:flex;gap:4px;overflow:auto}.admin-sidebar h3{display:none}.admin-tab{white-space:nowrap;width:auto}.admin-content{padding:14px}
+}
+@media(max-width:390px){.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.product-img{height:125px}.product-info h3{font-size:20px}.brand{gap:7px}.logo{width:35px;height:35px}}
+</style>
+</head>
+
+<body>
+<div class="topbar">BOUCHERIE ARTISANALE À PARIS 11e <span> · PRÉCOMMANDES EN LIGNE</span></div>
+
+<header>
+ <div class="nav">
+  <a href="#accueil" class="brand"><span class="logo">J</span><span><span class="brand-name">La Boucherie Jaques</span><span class="brand-sub">Tradition · Qualité · Savoir-faire</span></span></a>
+  <nav class="navlinks" id="navlinks">
+   <a href="#accueil">Accueil</a><a href="#produits">Nos viandes</a><a href="#maison">La maison</a><a href="#visite">Nous trouver</a>
+  </nav>
+  <div style="display:flex;gap:12px;align-items:center"><button class="btn wine" id="openCart">Panier <span id="cartCount">0</span></button><button class="menu" id="menuBtn" aria-label="Menu">☰</button></div>
+ </div>
+</header>
+
+<main>
+<section class="hero" id="accueil"><div class="hero-inner"><div class="hero-copy">
+ <div class="eyebrow">L'exigence du bon produit</div>
+ <h1>Le goût des<br><em>belles pièces.</em></h1>
+ <p>Des viandes soigneusement sélectionnées, le respect du geste artisanal et le plaisir de bien manger. Retrouvez l'esprit de la boucherie de quartier.</p>
+ <div class="actions"><a class="btn cream-btn" href="#produits">Découvrir nos viandes ↗</a><a class="btn outline" style="border-color:#ffffff70;color:white" href="#visite">Nous rendre visite</a></div>
+ <div class="hero-points"><span>✦ Sélection soignée</span><span>✦ Précommande simple</span><span>✦ Paris 11e</span></div>
+</div></div></section>
+
+<div class="trust">
+ <div><strong>Le choix du boucher</strong><small>Une sélection attentive des pièces</small></div>
+ <div><strong>Le goût de la tradition</strong><small>Le savoir-faire d'une boucherie de quartier</small></div>
+ <div><strong>Retrait en boutique</strong><small>Préparez votre commande à l'avance</small></div>
+</div>
+
+<section class="section" id="produits"><div class="inner">
+ <div class="section-head"><div><div class="eyebrow">Notre sélection</div><h2>Les pièces du moment</h2></div><p>Choisissez vos pièces et préparez votre précommande. La disponibilité et le montant final sont confirmés par la boutique.</p></div>
+ <div class="filters" id="filters">
+  <button class="filter active" data-cat="Tout">Tout voir</button><button class="filter" data-cat="Bœuf">Bœuf</button><button class="filter" data-cat="Veau">Veau</button><button class="filter" data-cat="Agneau">Agneau</button><button class="filter" data-cat="Volaille">Volaille</button><button class="filter" data-cat="Préparations">Préparations</button>
+ </div>
+ <div class="products" id="products"><div class="empty">Chargement des produits…</div></div>
+ <div class="notice" id="productNotice"></div>
+</div></section>
+
+<section class="section story" id="maison"><div class="inner story-grid">
+ <div class="story-image"><img loading="lazy" src="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=1000&q=85" alt="Viande sélectionnée"><div class="seal">Le goût<br>du vrai</div></div>
+ <div><div class="eyebrow">La maison Jaques</div><h2>Une boucherie de caractère, au cœur du quartier.</h2>
+ <p>La Boucherie Jaques défend une idée simple : le plaisir commence par le choix du produit et se prolonge dans le conseil, la préparation et le partage autour de la table.</p>
+ <p>Que vous prépariez un repas de famille, un dîner entre amis ou un plat du quotidien, notre sélection vous accompagne avec simplicité et exigence.</p>
+ <div class="points"><div class="point"><strong>La sélection</strong><small>Des pièces choisies avec soin</small></div><div class="point"><strong>Le conseil</strong><small>Des idées selon vos envies</small></div><div class="point"><strong>Le quartier</strong><small>Une adresse parisienne</small></div><div class="point"><strong>La préparation</strong><small>Votre commande prête au retrait</small></div></div>
+ <a class="btn wine" href="#visite">Découvrir la boutique ↗</a>
+ </div>
+</div></section>
+
+<section class="section" id="visite"><div class="inner">
+ <div class="section-head"><div><div class="eyebrow">À bientôt</div><h2>Passons à table.</h2></div><p>Une question sur une pièce, une quantité ou une préparation ? Contactez-nous ou passez directement à la boutique.</p></div>
+ <div class="visit-grid">
+  <div class="visit-card"><div class="eyebrow">Notre adresse</div><h3>Au plaisir de vous accueillir.</h3>
+   <div class="contact-line"><span>⌖</span><div><b>La Boucherie Jaques</b><span>16 rue Goncourt, 75011 Paris</span></div></div>
+   <div class="contact-line"><span>☎</span><div><b>Téléphone</b><span><a href="tel:+33143571129">01 43 57 11 29</a></span></div></div>
+   <a class="btn green" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=16+rue+Goncourt+75011+Paris">Itinéraire Google Maps ↗</a>
+  </div>
+  <div class="visit-card"><div class="eyebrow">Horaires de la boutique</div><h3>À votre service.</h3>
+   <table class="hours"><tr><td>Lundi</td><td>Fermé</td></tr><tr><td>Mardi</td><td>08:00 – 20:00</td></tr><tr><td>Mercredi</td><td>08:00 – 20:00</td></tr><tr><td>Jeudi</td><td>08:00 – 20:00</td></tr><tr><td>Vendredi</td><td>08:00 – 20:00</td></tr><tr><td>Samedi</td><td>08:00 – 20:00</td></tr><tr><td>Dimanche</td><td>08:00 – 15:00</td></tr></table>
+  </div>
+ </div>
+</div></section>
+
+<section class="cta"><div class="cta-inner"><div><h2>Votre prochain repas commence ici.</h2><p>Préparez votre sélection en ligne et indiquez-nous quand vous souhaitez la retirer.</p></div><a class="btn cream-btn" href="#produits">Composer ma commande ↗</a></div></section>
+</main>
+
+<footer><div class="footer-inner">
+ <div class="footer-top"><div><a href="#accueil" class="brand"><span class="logo" style="color:var(--cream)">J</span><span><span class="brand-name" style="color:var(--cream)">La Boucherie Jaques</span><span class="brand-sub" style="color:#ffffff80">Tradition · Qualité · Savoir-faire</span></span></a><p class="footer-desc">Une boucherie de quartier au cœur de Paris 11e. Le goût des belles pièces et le plaisir du partage.</p></div>
+ <div class="footer-links"><a href="#produits">Nos viandes</a><a href="#maison">La maison</a><a href="#visite">Contact & horaires</a><a href="tel:+33143571129">01 43 57 11 29</a></div></div>
+ <div class="footer-bottom"><span>© <span id="year"></span> La Boucherie Jaques</span><span>16 rue Goncourt, 75011 Paris</span><button class="admin-link" id="openAdmin">Espace administration</button></div>
+</div></footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer">
+ <div class="drawer-head"><h2>Votre panier</h2><button class="close" id="closeCart">×</button></div>
+ <div class="cart-items" id="cartItems"></div>
+ <div class="drawer-foot"><div class="total"><span>Total estimé</span><span id="total">0,00 €</span></div><p class="fine">Le poids final et le montant exact sont confirmés en boutique. Aucun paiement n'est pris sur ce site.</p><button class="btn wine" id="checkout">Continuer vers la précommande</button></div>
+</aside>
+
+<div class="modal-wrap" id="checkoutModal"><div class="modal">
+ <div class="modal-head"><h2>Votre précommande</h2><button class="close" data-close="checkoutModal">×</button></div>
+ <div class="modal-body"><div id="checkoutMessage"></div>
+ <form id="checkoutForm">
+  <div class="form-grid">
+   <div class="field"><label>Nom et prénom *</label><input name="customer_name" required autocomplete="name"></div>
+   <div class="field"><label>Téléphone *</label><input name="customer_phone" type="tel" required autocomplete="tel"></div>
+   <div class="field"><label>E-mail (facultatif)</label><input name="customer_email" type="email" autocomplete="email"></div>
+   <div class="field"><label>Date de retrait souhaitée</label><input name="pickup_date" type="date" id="pickupDate"></div>
+   <div class="field full"><label>Précisions (facultatif)</label><textarea name="notes" placeholder="Préparation, quantités, heure approximative…"></textarea></div>
+  </div>
+  <div class="detail" id="checkoutSummary"></div>
+  <p class="fine">Votre demande devra être confirmée par la boutique. Pas de paiement en ligne.</p>
+  <button class="btn wine" id="submitOrder" style="width:100%">Envoyer ma précommande</button>
+  <div id="whatsappFallback" class="hidden"><p class="error">L'envoi en ligne a échoué. Vous pouvez transmettre votre demande par WhatsApp.</p><a class="btn green" id="whatsappLink" target="_blank" rel="noopener">Envoyer sur WhatsApp ↗</a></div>
+ </form></div>
+</div></div>
+
+<div class="modal-wrap" id="adminModal"><div class="modal large">
+ <div class="modal-head"><h2>Espace administration</h2><button class="close" data-close="adminModal">×</button></div>
+ <div class="modal-body" id="adminRoot">
+  <div class="admin-login"><p class="admin-muted">Connexion réservée aux comptes administrateurs autorisés dans Supabase.</p>
+   <form id="loginForm"><div class="field"><label>E-mail administrateur</label><input id="adminEmail" type="email" required autocomplete="username"></div><div class="field"><label>Mot de passe</label><input id="adminPassword" type="password" required autocomplete="current-password"></div><p id="loginError" class="error"></p><button class="btn wine" style="width:100%">Se connecter</button></form>
+  </div>
+ </div>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+
+/* CONFIGURATION SUPABASE : clé publishable uniquement, jamais de clé secret/service_role. */
+const SUPABASE_URL = "https://nzecskmgbcjohnllxcsv.supabase.co";
+const SUPABASE_KEY = "sb_publishable_kTZBG3PNsrEhvfi2gGhhEA_MdlDnjUW";
+const WHATSAPP_NUMBER = "33143571129";
+const db = window.supabase ? window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY) : null;
+
+const demoProducts = [
+{id:"demo-1",name:"Entrecôte de bœuf",description:"Une pièce généreuse, idéale à griller.",category:"Bœuf",price:29.90,unit:"€/kg",image_url:"https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=900&q=80",available:true},
+{id:"demo-2",name:"Bavette de bœuf",description:"Une viande savoureuse et pleine de caractère.",category:"Bœuf",price:24.90,unit:"€/kg",image_url:"https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=900&q=80",available:true},
+{id:"demo-3",name:"Filet de bœuf",description:"Une pièce tendre pour un repas raffiné.",category:"Bœuf",price:39.90,unit:"€/kg",image_url:"https://images.unsplash.com/photo-1603048297172-c92544798d5a?auto=format&fit=crop&w=900&q=80",available:true},
+{id:"demo-4",name:"Escalopes de veau",description:"Délicates et faciles à préparer.",category:"Veau",price:27.90,unit:"€/kg",image_url:"https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?auto=format&fit=crop&w=900&q=80",available:true},
+{id:"demo-5",name:"Côtelettes d'agneau",description:"Parfaites à la poêle ou au barbecue.",category:"Agneau",price:26.90,unit:"€/kg",image_url:"https://images.unsplash.com/photo-1603360946369-dc9bb6258143?auto=format&fit=crop&w=900&q=80",available:true},
+{id:"demo-6",name:"Poulet fermier",description:"Une volaille à partager en famille.",category:"Volaille",price:12.90,unit:"€/kg",image_url:"https://images.unsplash.com/photo-1587593810167-a84920ea0781?auto=format&fit=crop&w=900&q=80",available:true},
+{id:"demo-7",name:"Brochettes de bœuf",description:"Prêtes à cuire, idéales pour les grillades.",category:"Préparations",price:22.90,unit:"€/kg",image_url:"https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80",available:true},
+{id:"demo-8",name:"Saucisses artisanales",description:"Pour vos repas conviviaux et barbecues.",category:"Préparations",price:15.90,unit:"€/kg",image_url:"https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80",available:true},
+{id:"demo-9",name:"Rôti de veau",description:"Une belle pièce pour un déjeuner dominical.",category:"Veau",price:25.90,unit:"€/kg",image_url:"https://images.unsplash.com/photo-1432139555190-58524dae6a55?auto=format&fit=crop&w=900&q=80",available:true}
+];
+
+let products=[...demoProducts],fromDB=false,category="Tout",cart=[],adminUser=null,adminProducts=[],adminOrders=[],adminTab="orders";
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+const money=n=>Number(n||0).toLocaleString("fr-FR",{style:"currency",currency:"EUR"});
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function notify(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(notify.timer);notify.timer=setTimeout(()=>t.classList.remove("show"),2800)}
+function modal(id,open){$("#"+id).classList.toggle("open",open)}
+function dateText(v){if(!v)return "—";const d=new Date(v);return isNaN(d)?"—":d.toLocaleString("fr-FR",{dateStyle:"short",timeStyle:"short"})}
+function statusText(s){return ({new:"Nouvelle",confirmed:"Confirmée",preparing:"En préparation",ready:"Prête au retrait",completed:"Terminée",cancelled:"Annulée"})[s]||s}
+function renderProducts(){
+ const list=products.filter(p=>p.available!==false&&(category==="Tout"||p.category===category));
+ $("#products").innerHTML=list.length?list.map(p=>`
+ <article class="card"><div class="product-img"><img loading="lazy" src="${esc(p.image_url||demoProducts[0].image_url)}" alt="${esc(p.name)}" onerror="this.onerror=null;this.src='${demoProducts[0].image_url}'"><span class="tag">${esc(p.category||"Sélection")}</span></div>
+ <div class="product-info"><div class="category-label">La sélection Jaques</div><h3>${esc(p.name)}</h3><p>${esc(p.description||"Une pièce sélectionnée avec soin.")}</p>
+ <div class="product-bottom"><div class="price">${money(p.price)} <small>${esc(p.unit||"€/kg")}</small></div><button class="add" data-add="${esc(p.id)}" aria-label="Ajouter au panier">+</button></div></div></article>`).join(""):`<div class="empty">Aucun produit disponible dans cette catégorie pour le moment.</div>`;
+ $("#productNotice").textContent=fromDB?"Produits chargés depuis la base de données.":"Produits de démonstration affichés : ajoutez vos produits dans l'administration Supabase pour activer les précommandes en ligne.";
+}
+async function loadProducts(){
+ if(db){try{const {data,error}=await db.from("products").select("id,name,description,category,price,unit,image_url,available").eq("available",true).order("created_at",{ascending:true});if(error)throw error;products=data||[];fromDB=true;renderProducts();return}catch(e){console.warn("Supabase produits:",e.message)}}
+ products=[...demoProducts];fromDB=false;renderProducts();
+}
+function addToCart(id){const p=products.find(p=>String(p.id)===String(id));if(!p)return;const line=cart.find(p=>String(p.id)===String(id));if(line)line.quantity++;else cart.push({...p,quantity:1});renderCart();notify("Produit ajouté au panier")}
+function quantity(id,d){const p=cart.find(p=>String(p.id)===String(id));if(!p)return;p.quantity+=d;if(p.quantity<=0)cart=cart.filter(x=>String(x.id)!==String(id));renderCart()}
+function total(){return cart.reduce((s,p)=>s+Number(p.price||0)*p.quantity,0)}
+function renderCart(){
+ $("#cartCount").textContent=cart.reduce((s,p)=>s+p.quantity,0);$("#total").textContent=money(total());
+ $("#cartItems").innerHTML=cart.length?cart.map(p=>`<div class="cart-line"><div><strong>${esc(p.name)}</strong><small>${money(p.price)} ${esc(p.unit||"€/kg")}</small><div class="qty"><button data-qty="${esc(p.id)}" data-delta="-1">−</button><span>${p.quantity}</span><button data-qty="${esc(p.id)}" data-delta="1">+</button></div></div><b>${money(p.price*p.quantity)}</b></div>`).join(""):`<div class="empty">Votre panier est vide.<br><br><a class="btn outline" href="#produits" id="browse">Découvrir nos viandes</a></div>`;
+ $("#checkout").disabled=!cart.length;
+}
+function orderMessage(){
+ const f=new FormData($("#checkoutForm"));
+ return "Bonjour La Boucherie Jaques, je souhaite demander une précommande :\n"+
+ cart.map(p=>`- ${p.name} × ${p.quantity} (${money(p.price*p.quantity)} estimés)`).join("\n")+
+ `\nTotal estimé : ${money(total())}\nNom : ${f.get("customer_name")}\nTéléphone : ${f.get("customer_phone")}`+
+ (f.get("customer_email")?`\nE-mail : ${f.get("customer_email")}`:"")+
+ (f.get("pickup_date")?`\nDate souhaitée : ${f.get("pickup_date")}`:"")+
+ (f.get("notes")?`\nPrécisions : ${f.get("notes")}`:"")+
+ "\nMerci de confirmer la disponibilité et le montant final.";
+}
+async function sendOrder(e){
+ e.preventDefault();if(!cart.length)return;
+ const btn=$("#submitOrder"),msg=$("#checkoutMessage");btn.disabled=true;btn.textContent="Envoi en cours…";msg.innerHTML="";$("#whatsappFallback").classList.add("hidden");
+ const f=new FormData(e.currentTarget);
+ try{
+  if(!db)throw Error("Connexion à Supabase indisponible.");
+  if(!fromDB||cart.some(p=>String(p.id).startsWith("demo-")))throw Error("Les produits affichés sont des exemples. Ajoutez vos produits dans Supabase avant d'activer les commandes en ligne.");
+  const items=cart.map(p=>({product_id:p.id,name:p.name,quantity:p.quantity,unit:p.unit||"€/kg",unit_price:Number(p.price)}));
+  const payload={customer_name:String(f.get("customer_name")).trim(),customer_phone:String(f.get("customer_phone")).trim(),customer_email:String(f.get("customer_email")||"").trim()||null,pickup_date:f.get("pickup_date")||null,notes:String(f.get("notes")||"").trim()||null,items,status:"new"};
+  const {error}=await db.from("orders").insert(payload);if(error)throw error;
+  msg.innerHTML='<div class="success"><b>Votre demande a bien été envoyée.</b><br>La boutique vous confirmera la disponibilité et le montant final.</div>';
+  cart=[];renderCart();e.currentTarget.reset();btn.textContent="Précommande envoyée";notify("Précommande enregistrée");
+  setTimeout(()=>{modal("checkoutModal",false);btn.disabled=false;btn.textContent="Envoyer ma précommande"},2400);
+ }catch(err){
+  console.error(err);msg.innerHTML=`<p class="error">Échec de l'envoi en ligne : ${esc(err.message)}</p>`;
+  $("#whatsappLink").href="https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(orderMessage());
+  $("#whatsappFallback").classList.remove("hidden");btn.disabled=false;btn.textContent="Réessayer l'envoi en ligne";
+ }
+}
+
+/* ADMINISTRATION */
+function loginView(){
+ $("#adminRoot").innerHTML=`<div class="admin-login"><p class="admin-muted">Connexion réservée aux comptes autorisés.</p><form id="loginForm"><div class="field"><label>E-mail administrateur</label><input id="adminEmail" type="email" required autocomplete="username"></div><div class="field"><label>Mot de passe</label><input id="adminPassword" type="password" required autocomplete="current-password"></div><p id="loginError" class="error"></p><button class="btn wine" style="width:100%">Se connecter</button></form></div>`;
+}
+async function isAdmin(user){
+ const {data,error}=await db.from("admin_users").select("user_id").eq("user_id",user.id).maybeSingle();
+ if(error){console.warn("Vérification administrateur:",error.message);return false}
+ return !!data;
+}
+function adminView(){
+ $("#adminRoot").innerHTML=`<div class="admin-shell"><aside class="admin-sidebar"><h3>Jaques</h3><button class="admin-tab ${adminTab==="orders"?"active":""}" data-tab="orders">Commandes</button><button class="admin-tab ${adminTab==="products"?"active":""}" data-tab="products">Produits</button><button class="admin-tab" id="refreshAdmin">↻ Actualiser</button><button class="admin-tab" id="logoutAdmin">Déconnexion</button></aside><section class="admin-content" id="adminPanel">Chargement…</section></div>`;
+}
+async function openAdmin(){
+ modal("adminModal",true);
+ if(!db){$("#adminRoot").innerHTML='<p class="error">Supabase ne se charge pas. Vérifiez votre connexion internet.</p>';return}
+ const {data}=await db.auth.getSession();
+ if(data.session&&await isAdmin(data.session.user)){adminUser=data.session.user;adminView();await loadAdmin()}
+ else{if(data.session)await db.auth.signOut();adminUser=null;loginView()}
+}
+async function loginAdmin(e){
+ e.preventDefault();const errorBox=$("#loginError");errorBox.textContent="";
+ const {data,error}=await db.auth.signInWithPassword({email:$("#adminEmail").value.trim(),password:$("#adminPassword").value});
+ if(error){errorBox.textContent="Connexion impossible : "+error.message;return}
+ if(!await isAdmin(data.user)){await db.auth.signOut();errorBox.textContent="Ce compte n'est pas autorisé. Ajoutez son user_id à la table admin_users dans Supabase.";return}
+ adminUser=data.user;adminTab="orders";adminView();await loadAdmin();notify("Connexion réussie");
+}
+async function loadAdmin(){
+ if(!adminUser)return;
+ $("#adminPanel").innerHTML="Chargement des données…";
+ try{
+  const [p,o]=await Promise.all([
+   db.from("products").select("id,name,description,category,price,unit,image_url,available,created_at").order("created_at",{ascending:false}),
+   db.from("orders").select("id,customer_name,customer_phone,customer_email,pickup_date,notes,items,status,created_at").order("created_at",{ascending:false}).limit(100)
+  ]);
+  if(p.error)throw Error("Produits : "+p.error.message);if(o.error)throw Error("Commandes : "+o.error.message);
+  adminProducts=p.data||[];adminOrders=o.data||[];renderAdminPanel();
+ }catch(err){$("#adminPanel").innerHTML=`<p class="error">${esc(err.message)}</p><p class="admin-muted">Vérifiez les tables et les politiques de sécurité RLS dans Supabase.</p><button class="btn outline" id="refreshAdmin">Réessayer</button>`}
+}
+function renderAdminPanel(){
+ const el=$("#adminPanel");
+ if(adminTab==="products"){
+  el.innerHTML=`<h3>Produits</h3><p class="admin-muted">Ajoutez et modifiez les produits affichés sur la vitrine.</p>
+  <div class="admin-toolbar"><span>${adminProducts.length} produit(s)</span><button class="btn wine" id="newProduct">+ Ajouter un produit</button></div>
+  <div id="productEditor" class="hidden"></div><div class="table-wrap"><table class="admin-table"><thead><tr><th>Nom</th><th>Catégorie</th><th>Prix</th><th>État</th><th>Actions</th></tr></thead><tbody>
+  ${adminProducts.map(p=>`<tr><td><b>${esc(p.name)}</b><br>${esc(p.unit||"€/kg")}</td><td>${esc(p.category)}</td><td>${money(p.price)}</td><td>${p.available?"Visible":"Masqué"}</td><td><button class="mini" data-edit="${esc(p.id)}">Modifier</button><button class="mini" data-toggle="${esc(p.id)}" data-state="${p.available}">${p.available?"Masquer":"Afficher"}</button></td></tr>`).join("")||'<tr><td colspan="5">Aucun produit enregistré.</td></tr>'}
+  </tbody></table></div>`;
+ }else{
+  el.innerHTML=`<h3>Commandes</h3><p class="admin-muted">Les 100 commandes les plus récentes.</p>
+  <div class="stats"><div class="stat"><small>Nouvelles</small><strong>${adminOrders.filter(o=>o.status==="new").length}</strong></div><div class="stat"><small>En préparation</small><strong>${adminOrders.filter(o=>o.status==="preparing").length}</strong></div><div class="stat"><small>Prêtes</small><strong>${adminOrders.filter(o=>o.status==="ready").length}</strong></div></div>
+  <div class="admin-toolbar"><span>${adminOrders.length} commande(s)</span><button class="btn outline" id="exportCSV">Exporter CSV</button></div>
+  <div class="table-wrap"><table class="admin-table"><thead><tr><th>Date</th><th>Client</th><th>Articles</th><th>Statut</th><th>Détails</th></tr></thead><tbody>
+  ${adminOrders.map(o=>`<tr><td>${esc(dateText(o.created_at))}</td><td><b>${esc(o.customer_name)}</b><br>${esc(o.customer_phone)}</td><td>${esc(summarize(o.items))}</td><td><select data-status="${esc(o.id)}">${["new","confirmed","preparing","ready","completed","cancelled"].map(s=>`<option value="${s}" ${o.status===s?"selected":""}>${statusText(s)}</option>`).join("")}</select></td><td><button class="mini" data-detail="${esc(o.id)}">Voir</button></td></tr>`).join("")||'<tr><td colspan="5">Aucune commande pour le moment.</td></tr>'}
+  </tbody></table></div><div id="orderDetail"></div>`;
+ }
+}
+function summarize(items){return Array.isArray(items)?items.map(i=>`${i.name||"Produit"} × ${i.quantity||1}`).join(", "):"Détails non disponibles"}
+function editProduct(p=null){
+ const box=$("#productEditor");box.classList.remove("hidden");
+ box.innerHTML=`<div class="visit-card" style="margin-bottom:15px"><h3 style="font-size:27px">${p?"Modifier le produit":"Nouveau produit"}</h3>
+ <form id="productForm" data-id="${p?esc(p.id):""}"><div class="form-grid">
+ <div class="field"><label>Nom *</label><input name="name" required value="${esc(p?.name||"")}"></div>
+ <div class="field"><label>Catégorie *</label><select name="category">${["Bœuf","Veau","Agneau","Volaille","Porc","Préparations","Autre"].map(c=>`<option ${p?.category===c?"selected":""}>${c}</option>`).join("")}</select></div>
+ <div class="field"><label>Prix en euros *</label><input name="price" type="number" min="0" step=".01" required value="${p?Number(p.price):""}"></div>
+ <div class="field"><label>Unité</label><input name="unit" value="${esc(p?.unit||"€/kg")}"></div>
+ <div class="field full"><label>Description</label><textarea name="description">${esc(p?.description||"")}</textarea></div>
+ <div class="field full"><label>URL de l'image</label><input name="image_url" type="url" value="${esc(p?.image_url||"")}" placeholder="https://…"></div>
+ <div class="field full"><label><input name="available" type="checkbox" ${p?.available!==false?"checked":""} style="width:auto"> Disponible sur la vitrine</label></div>
+ </div><button class="btn wine">Enregistrer</button> <button class="btn outline" type="button" id="cancelEdit">Annuler</button><p id="productError" class="error"></p></form></div>`;
+ box.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+async function saveProduct(e){
+ e.preventDefault();const form=e.currentTarget,f=new FormData(form),id=form.dataset.id;
+ const payload={name:String(f.get("name")).trim(),category:String(f.get("category")),price:Number(f.get("price")),unit:String(f.get("unit")||"€/kg").trim()||"€/kg",description:String(f.get("description")||"").trim(),image_url:String(f.get("image_url")||"").trim()||null,available:f.get("available")==="on"};
+ if(!payload.name||!Number.isFinite(payload.price)||payload.price<0){$("#productError").textContent="Vérifiez le nom et le prix.";return}
+ const {error}=id?await db.from("products").update(payload).eq("id",id):await db.from("products").insert(payload);
+ if(error){$("#productError").textContent="Erreur : "+error.message;return}
+ notify("Produit enregistré");await loadAdmin();await loadProducts();
+}
+async function toggleProduct(id,current){
+ const {error}=await db.from("products").update({available:!current}).eq("id",id);
+ if(error){notify("Erreur : "+error.message);return}
+ await loadAdmin();await loadProducts();notify("Disponibilité mise à jour");
+}
+async function updateStatus(id,status){
+ const {error}=await db.from("orders").update({status}).eq("id",id);
+ if(error){notify("Erreur : "+error.message);await loadAdmin();return}
+ notify("Statut mis à jour");await loadAdmin();
+}
+function orderDetail(id){
+ const o=adminOrders.find(x=>String(x.id)===String(id));if(!o)return;
+ const lines=Array.isArray(o.items)?o.items.map(i=>`• ${i.name||"Produit"} × ${i.quantity||1} — ${money(Number(i.unit_price||0)*Number(i.quantity||1))}`).join("\n"):"Détails non disponibles";
+ $("#orderDetail").innerHTML=`<div class="detail"><b>Commande ${esc(o.id)}</b>\nClient : ${esc(o.customer_name)}\nTéléphone : ${esc(o.customer_phone)}\nE-mail : ${esc(o.customer_email||"Non renseigné")}\nRetrait : ${esc(o.pickup_date||"Non précisé")}\nCréée le : ${esc(dateText(o.created_at))}\nStatut : ${esc(statusText(o.status))}\n\nArticles :\n${esc(lines)}\n\nNotes : ${esc(o.notes||"Aucune")}</div>`;
+}
+function exportCSV(){
+ const cols=["id","created_at","customer_name","customer_phone","customer_email","pickup_date","status","items","notes"];
+ const cell=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
+ const csv=[cols.join(";"),...adminOrders.map(o=>cols.map(c=>cell(c==="items"?JSON.stringify(o[c]||[]):o[c])).join(";"))].join("\r\n");
+ const blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"});
+ const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="commandes-jaques.csv";a.click();URL.revokeObjectURL(url);
+}
+
+/* Événements */
+document.addEventListener("click",async e=>{
+ const add=e.target.closest("[data-add]");if(add)addToCart(add.dataset.add);
+ const q=e.target.closest("[data-qty]");if(q)quantity(q.dataset.qty,Number(q.dataset.delta));
+ const filter=e.target.closest("[data-cat]");if(filter){category=filter.dataset.cat;$$(".filter").forEach(b=>b.classList.toggle("active",b===filter));renderProducts()}
+ if(e.target.closest("#openCart")){$("#overlay").classList.add("open");$("#drawer").classList.add("open")}
+ if(e.target.closest("#closeCart")||e.target.id==="overlay"){$("#overlay").classList.remove("open");$("#drawer").classList.remove("open")}
+ if(e.target.closest("#browse")){$("#overlay").classList.remove("open");$("#drawer").classList.remove("open")}
+ if(e.target.closest("#checkout")&&cart.length){$("#overlay").classList.remove("open");$("#drawer").classList.remove("open");$("#checkoutSummary").textContent=cart.map(p=>`${p.name} × ${p.quantity} — ${money(p.price*p.quantity)}`).join("\n")+"\n\nTotal estimé : "+money(total());$("#checkoutMessage").innerHTML="";$("#whatsappFallback").classList.add("hidden");modal("checkoutModal",true)}
+ const close=e.target.closest("[data-close]");if(close)modal(close.dataset.close,false);
+ if(e.target.closest("#openAdmin"))openAdmin();
+ if(e.target.closest("#menuBtn"))$("#navlinks").classList.toggle("open");
+ if(e.target.closest("#refreshAdmin"))loadAdmin();
+ if(e.target.closest("#logoutAdmin")){await db.auth.signOut();adminUser=null;loginView();notify("Déconnexion effectuée")}
+ const tab=e.target.closest("[data-tab]");if(tab){adminTab=tab.dataset.tab;adminView();await loadAdmin()}
+ if(e.target.closest("#newProduct"))editProduct();
+ const edit=e.target.closest("[data-edit]");if(edit)editProduct(adminProducts.find(p=>String(p.id)===String(edit.dataset.edit)));
+ const toggle=e.target.closest("[data-toggle]");if(toggle)toggleProduct(toggle.dataset.toggle,toggle.dataset.state==="true");
+ if(e.target.closest("#cancelEdit")){$("#productEditor").classList.add("hidden");$("#productEditor").innerHTML=""}
+ const detail=e.target.closest("[data-detail]");if(detail)orderDetail(detail.dataset.detail);
+ if(e.target.closest("#exportCSV"))exportCSV();
+});
+document.addEventListener("submit",e=>{
+ if(e.target.id==="checkoutForm")sendOrder(e);
+ if(e.target.id==="loginForm")loginAdmin(e);
+ if(e.target.id==="productForm")saveProduct(e);
+});
+document.addEventListener("change",e=>{const s=e.target.closest("[data-status]");if(s)updateStatus(s.dataset.status,s.value)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){$$(".modal-wrap.open").forEach(m=>modal(m.id,false));$("#overlay").classList.remove("open");$("#drawer").classList.remove("open")}});
+$("#navlinks").addEventListener("click",e=>{if(e.target.closest("a"))$("#navlinks").classList.remove("open")});
+$("#year").textContent=new Date().getFullYear();
+renderCart();loadProducts();
+</script>
+</body>
+</html>
