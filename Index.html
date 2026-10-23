@@ -1,0 +1,511 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Boucherie artisanale à Paris 11e. Produits sélectionnés, conseils et précommandes.">
+<title>Boucherie Artisanale | Paris XI</title>
+<style>
+:root {
+  --green: #17382b;
+  --green-light: #294c3c;
+  --cream: #f7f2e8;
+  --paper: #fffdf8;
+  --red: #87342d;
+  --gold: #c8a66b;
+  --ink: #292a24;
+  --muted: #77766d;
+  --line: #e4dccd;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font: 16px/1.6 Arial, sans-serif;
+}
+h1,h2,h3,.brand {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  line-height: 1.12;
+}
+h1 { font-size: clamp(2.7rem,6vw,5rem); margin: 0 0 20px; }
+h2 { font-size: clamp(2rem,4vw,3.4rem); margin: 0 0 18px; }
+h3 { font-size: 1.35rem; margin: 10px 0; }
+p { color: var(--muted); }
+a { color: inherit; }
+.container { width: min(1160px, calc(100% - 40px)); margin: auto; }
+.topbar {
+  background: var(--green);
+  color: var(--cream);
+  text-align: center;
+  padding: 8px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--cream);
+  border-bottom: 1px solid var(--line);
+}
+.nav {
+  min-height: 82px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+.brand {
+  color: var(--green);
+  text-decoration: none;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand-icon {
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+}
+nav { display: flex; align-items: center; gap: 25px; }
+nav a { text-decoration: none; font-size: 13px; }
+nav a:hover { color: var(--red); }
+button,.button {
+  border: 1px solid var(--green);
+  background: var(--green);
+  color: white;
+  padding: 13px 19px;
+  font: bold 13px Arial, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+}
+button:hover,.button:hover { background: var(--red); border-color: var(--red); }
+.button.red { background: var(--red); border-color: var(--red); }
+.button.outline { background: transparent; color: white; border-color: white; }
+.menu-toggle { display: none; }
+.hero { padding: 32px 0 50px; }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--green);
+  color: var(--cream);
+  min-height: 530px;
+}
+.hero-copy {
+  padding: clamp(30px,6vw,75px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.eyebrow {
+  color: var(--gold);
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  margin-bottom: 22px;
+}
+.hero-copy p { color: #e1e4d9; max-width: 430px; margin-bottom: 28px; }
+.hero-image { min-height: 350px; }
+.hero-image img,.product img,.story-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.features {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 15px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+}
+.feature { text-align: center; color: var(--green); font-size: 13px; }
+.feature strong { display: block; font: 18px Georgia,serif; margin-bottom: 5px; }
+.section { padding: 78px 0; }
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+.section-heading p { max-width: 430px; }
+.products {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+}
+.product { background: var(--paper); border: 1px solid var(--line); }
+.product img { height: 230px; }
+.product-content { padding: 20px; }
+.product-content p { font-size: 14px; }
+.product-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+  font-size: 12px;
+}
+.product-meta span { color: var(--red); font-weight: bold; }
+.pill {
+  display: inline-block;
+  padding: 4px 8px;
+  background: #eae2d2;
+  color: var(--green);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.notice { font-size: 12px; }
+.banner { background: var(--green); color: var(--cream); padding: 55px 0; }
+.banner-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+.banner h2 { font-size: clamp(2rem,4vw,3rem); }
+.banner p { color: #d8ded5; max-width: 620px; }
+.page { display: none; }
+.page.active { display: block; }
+.page-heading { background: var(--green); color: var(--cream); padding: 60px 0; }
+.page-heading p { color: #d8ded5; max-width: 650px; }
+.filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; }
+.filters button { background: transparent; color: var(--green); border-color: var(--line); }
+.filters button.active { background: var(--green); color: white; }
+.story {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 55px;
+}
+.story-image { height: 460px; }
+.checklist { list-style: none; padding: 0; }
+.checklist li { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.checklist li:before { content: "✦"; color: var(--red); margin-right: 12px; }
+.contact-grid {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 35px;
+}
+.info { background: var(--green); color: var(--cream); padding: 30px; }
+.info p { color: #d8ded5; }
+.info-row { padding: 15px 0; border-bottom: 1px solid #496052; }
+.info-row strong {
+  display: block;
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.form { background: var(--paper); border: 1px solid var(--line); padding: 28px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.field { display: flex; flex-direction: column; gap: 7px; }
+.field.full { grid-column: 1 / -1; }
+.field label { font-size: 12px; font-weight: bold; }
+input,textarea,select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d6cebf;
+  border-radius: 0;
+  font: inherit;
+  background: white;
+}
+textarea { min-height: 115px; resize: vertical; }
+.form small { display: block; color: var(--muted); font-size: 11px; margin: 12px 0; }
+.success { display: none; padding: 14px; margin-top: 15px; background: #e4efe3; color: #234d2c; }
+.admin-panel { background: var(--paper); border: 1px solid var(--line); padding: 30px; }
+footer { background: #10291f; color: var(--cream); padding: 40px 0 20px; }
+.footer-top { display: flex; justify-content: space-between; gap: 30px; }
+footer p { color: #bdc7bc; max-width: 380px; font-size: 13px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 20px; }
+.footer-links a { text-decoration: none; font-size: 13px; }
+.copyright {
+  border-top: 1px solid #385244;
+  margin-top: 25px;
+  padding-top: 18px;
+  font-size: 11px;
+  color: #9eafa1;
+}
+@media(max-width:800px) {
+  .nav { min-height: 70px; }
+  nav { display: none; }
+  nav.open { display: flex; position: absolute; top: 70px; left: 0; right: 0; background: var(--cream); flex-direction: column; align-items: stretch; padding: 15px 25px 25px; gap: 18px; border-bottom: 1px solid var(--line); }
+  .menu-toggle { display: block; }
+  .hero-grid,.story,.contact-grid { grid-template-columns: 1fr; }
+  .hero-image { min-height: 280px; }
+  .features { grid-template-columns: 1fr 1fr; }
+  .products { grid-template-columns: 1fr 1fr; }
+  .section { padding: 55px 0; }
+  .section-heading,.banner-inner,.footer-top { align-items: flex-start; flex-direction: column; }
+}
+@media(max-width:520px) {
+  .container { width: calc(100% - 28px); }
+  .products { grid-template-columns: 1fr; }
+  .product img { height: 240px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .field.full { grid-column: auto; }
+  .story-image { height: 300px; }
+}
+</style>
+</head>
+<body>
+<div class="topbar">Boucherie artisanale · Paris 11e · Qualité & savoir-faire</div>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="#accueil">
+      <span class="brand-icon">♜</span>
+      <span>Boucherie<br><small style="font:10px Arial;letter-spacing:2px">ARTISANALE</small></span>
+    </a>
+    <nav id="navigation">
+      <a href="#accueil">Accueil</a>
+      <a href="#produits">Produits</a>
+      <a href="#savoir-faire">Savoir-faire</a>
+      <a href="#contact">Contact</a>
+      <a class="button" href="#precommande">Précommander</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="page active" id="accueil">
+  <div class="container hero">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">Le goût du vrai</div>
+        <h1>La bonne viande.<br>Le bon savoir-faire.</h1>
+        <p>Une boucherie de quartier où la qualité des produits, le conseil et le travail artisanal sont au cœur de chaque préparation.</p>
+        <div class="hero-actions">
+          <a class="button red" href="#produits">Découvrir nos produits ↗</a>
+          <a class="button outline" href="#contact">Nous contacter</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=1200&q=85" alt="Pièce de viande">
+      </div>
+    </div>
+    <div class="features">
+      <div class="feature"><strong>✦ Sélection soignée</strong>Produits choisis avec attention</div>
+      <div class="feature"><strong>♨ Préparations maison</strong>Le geste et le goût</div>
+      <div class="feature"><strong>♧ Conseil de boucher</strong>Pour vos recettes</div>
+      <div class="feature"><strong>⌂ Esprit de quartier</strong>Un service de proximité</div>
+    </div>
+  </div>
+
+  <section class="section container">
+    <div class="section-heading">
+      <div><div class="eyebrow">À découvrir</div><h2>Nos incontournables</h2></div>
+      <p>Une sélection de catégories à personnaliser avec les produits réellement proposés en boutique.</p>
+    </div>
+    <div class="products">
+      <article class="product">
+        <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=800&q=80" alt="Bœuf">
+        <div class="product-content"><span class="pill">La sélection</span><h3>Bœuf</h3><p>Des pièces à griller, à rôtir ou à mijoter.</p><div class="product-meta">Conseil en boutique <span>Découvrir →</span></div></div>
+      </article>
+      <article class="product">
+        <img src="https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=800&q=80" alt="Volaille">
+        <div class="product-content"><span class="pill">Au quotidien</span><h3>Volailles</h3><p>Des idées simples pour vos repas.</p><div class="product-meta">Selon arrivage <span>Découvrir →</span></div></div>
+      </article>
+      <article class="product">
+        <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=800&q=80" alt="Préparations">
+        <div class="product-content"><span class="pill">Maison</span><h3>Préparations</h3><p>Des préparations à confirmer avec la boutique.</p><div class="product-meta">Fait avec soin <span>Découvrir →</span></div></div>
+      </article>
+    </div>
+    <p class="notice">Images illustratives. Les produits, disponibilités et prix doivent être confirmés par la boucherie.</p>
+  </section>
+
+  <section class="banner">
+    <div class="container banner-inner">
+      <div><div class="eyebrow">Pour votre prochain repas</div><h2>Préparez votre commande à l’avance.</h2><p>Envoyez votre demande. La boutique vous recontactera pour confirmer la disponibilité et le retrait.</p></div>
+      <a class="button red" href="#precommande">Faire une précommande ↗</a>
+    </div>
+  </section>
+</section>
+
+<section class="page" id="produits">
+  <div class="page-heading"><div class="container"><div class="eyebrow">Notre sélection</div><h1>Nos produits</h1><p>Explorez nos catégories. Les produits ci-dessous sont des exemples de présentation.</p></div></div>
+  <section class="section container">
+    <div class="filters" id="filters">
+      <button class="active" data-filter="all">Tout voir</button>
+      <button data-filter="boeuf">Bœuf</button>
+      <button data-filter="volaille">Volaille</button>
+      <button data-filter="maison">Préparations maison</button>
+    </div>
+    <div class="products" id="catalog">
+      <article class="product" data-category="boeuf"><img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=800&q=80" alt="Bœuf"><div class="product-content"><h3>Bœuf</h3><p>Pièces à griller, à rôtir ou à mijoter.</p><div class="product-meta">Prix en boutique <span>Demander →</span></div></div></article>
+      <article class="product" data-category="volaille"><img src="https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=800&q=80" alt="Volaille"><div class="product-content"><h3>Volaille</h3><p>Des idées pour les repas de tous les jours.</p><div class="product-meta">Selon disponibilité <span>Demander →</span></div></div></article>
+      <article class="product" data-category="maison"><img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=800&q=80" alt="Préparations maison"><div class="product-content"><h3>Saucisses & préparations</h3><p>Une sélection à préciser selon les recettes maison.</p><div class="product-meta">Selon arrivage <span>Demander →</span></div></div></article>
+      <article class="product" data-category="boeuf"><img src="https://images.unsplash.com/photo-1551028150-64b9f398f678?auto=format&fit=crop&w=800&q=80" alt="Viande à mijoter"><div class="product-content"><h3>Pièces à mijoter</h3><p>Pour des plats généreux et réconfortants.</p><div class="product-meta">Prix en boutique <span>Demander →</span></div></div></article>
+      <article class="product" data-category="maison"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="Préparation culinaire"><div class="product-content"><h3>Idées du boucher</h3><p>Demandez conseil pour choisir la bonne pièce.</p><div class="product-meta">Conseil personnalisé <span>Demander →</span></div></div></article>
+      <article class="product" data-category="volaille"><img src="https://images.unsplash.com/photo-1587593810167-a84920ea0781?auto=format&fit=crop&w=800&q=80" alt="Volaille rôtie"><div class="product-content"><h3>Pour le four</h3><p>Des produits à adapter à votre menu.</p><div class="product-meta">Selon disponibilité <span>Demander →</span></div></div></article>
+    </div>
+    <p class="notice">Aucun prix n’est inventé : demandez les tarifs à la boutique.</p>
+  </section>
+</section>
+
+<section class="page" id="savoir-faire">
+  <div class="page-heading"><div class="container"><div class="eyebrow">Le geste artisanal</div><h1>Le savoir-faire avant tout.</h1><p>Une page dédiée à l’histoire de la boucherie, ses engagements et l’attention portée à la préparation.</p></div></div>
+  <section class="section container">
+    <div class="story">
+      <div class="story-image"><img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=1000&q=85" alt="Viande préparée avec soin"></div>
+      <div><div class="eyebrow">Notre philosophie</div><h2>Le respect du produit et le sens du conseil.</h2><p>Une bonne boucherie, c’est aussi une équipe qui prend le temps de vous conseiller : choisir une pièce, comprendre sa cuisson et trouver la préparation adaptée à votre repas.</p>
+      <ul class="checklist"><li>Une sélection présentée avec transparence</li><li>Des conseils adaptés à vos recettes</li><li>Une attention portée à la préparation</li><li>Un service de proximité et d’écoute</li></ul>
+      <p class="notice">Complétez cette section avec l’histoire réelle, les fournisseurs et les engagements vérifiés de la boucherie.</p></div>
+    </div>
+  </section>
+</section>
+
+<section class="page" id="contact">
+  <div class="page-heading"><div class="container"><div class="eyebrow">Restons en contact</div><h1>Contact & accès</h1><p>Une question sur un produit ou une demande particulière ? Écrivez-nous.</p></div></div>
+  <section class="section container">
+    <div class="contact-grid">
+      <aside class="info"><div class="eyebrow">La boutique</div><h2 style="font-size:2rem">Boucherie Artisanale</h2><p>Paris 11e — informations à compléter.</p>
+        <div class="info-row"><strong>Adresse</strong>À renseigner</div>
+        <div class="info-row"><strong>Téléphone</strong>À renseigner</div>
+        <div class="info-row"><strong>Horaires</strong>À confirmer par la boutique</div>
+        <div class="info-row"><strong>Carte</strong><a href="https://maps.google.com/?q=boucherie+Paris+11e" target="_blank" rel="noreferrer">Rechercher à Paris 11e ↗</a></div>
+      </aside>
+      <form class="form" id="contactForm"><h2 style="font-size:2rem">Envoyer un message</h2>
+        <div class="form-grid">
+          <div class="field"><label for="contactName">Nom</label><input id="contactName" name="name" required></div>
+          <div class="field"><label for="contactEmail">E-mail</label><input id="contactEmail" name="email" type="email" required></div>
+          <div class="field full"><label for="contactSubject">Sujet</label><select id="contactSubject" name="subject"><option>Question sur les produits</option><option>Disponibilité</option><option>Autre demande</option></select></div>
+          <div class="field full"><label for="contactMessage">Message</label><textarea id="contactMessage" name="message" required></textarea></div>
+        </div>
+        <small>Prototype : ce formulaire ouvre votre application e-mail. Il n’envoie pas de données à un serveur.</small>
+        <button type="submit">Préparer mon message ↗</button><div class="success" id="contactSuccess" role="status">Votre application e-mail va s’ouvrir avec le message prérempli.</div>
+      </form>
+    </div>
+  </section>
+</section>
+
+<section class="page" id="precommande">
+  <div class="page-heading"><div class="container"><div class="eyebrow">Sans paiement en ligne</div><h1>Précommander</h1><p>Décrivez votre demande. Elle ne sera définitive qu’après confirmation de la boutique.</p></div></div>
+  <section class="section container">
+    <div class="contact-grid">
+      <div><div class="eyebrow">Comment ça marche ?</div><h2>Simple, direct, humain.</h2><ul class="checklist"><li>Indiquez les produits et quantités.</li><li>Choisissez une date de retrait souhaitée.</li><li>La boutique vous recontacte pour confirmer.</li></ul></div>
+      <form class="form" id="orderForm"><h2 style="font-size:2rem">Votre demande</h2>
+        <div class="form-grid">
+          <div class="field"><label for="orderName">Nom *</label><input id="orderName" name="name" required></div>
+          <div class="field"><label for="orderPhone">Téléphone *</label><input id="orderPhone" name="phone" type="tel" required></div>
+          <div class="field full"><label for="orderEmail">E-mail</label><input id="orderEmail" name="email" type="email"></div>
+          <div class="field full"><label for="orderItems">Produits et quantités souhaités *</label><textarea id="orderItems" name="items" required placeholder="Ex. : 4 steaks, 1 rôti…"></textarea></div>
+          <div class="field"><label for="orderDate">Date souhaitée</label><input id="orderDate" name="date" type="date"></div>
+          <div class="field"><label for="orderTime">Créneau</label><select id="orderTime" name="time"><option>À convenir</option><option>Matin</option><option>Midi</option><option>Après-midi</option></select></div>
+          <div class="field full"><label for="orderNote">Précisions</label><textarea id="orderNote" name="note"></textarea></div>
+          <div class="field full"><label><input type="checkbox" required style="width:auto"> J’accepte que mes informations soient utilisées pour répondre à ma demande.</label></div>
+        </div>
+        <small>Prototype : le formulaire prépare un e-mail. Pour recevoir les commandes automatiquement, connectez un backend ou un service d’envoi.</small>
+        <button type="submit">Préparer la demande ↗</button><div class="success" id="orderSuccess" role="status">Votre application e-mail va s’ouvrir avec la demande préremplie.</div>
+      </form>
+    </div>
+  </section>
+</section>
+
+<section class="page" id="admin">
+  <div class="page-heading"><div class="container"><div class="eyebrow">Administration</div><h1>Espace de gestion</h1><p>Prototype visuel du futur tableau de bord.</p></div></div>
+  <section class="section container"><div class="admin-panel">
+    <span class="pill">Démo uniquement</span><h2 style="margin-top:15px">Tableau de bord</h2>
+    <p>Cette page n’est pas sécurisée et ne sauvegarde pas de changements. Ne saisissez pas de données confidentielles.</p>
+    <div class="products">
+      <article class="product"><div class="product-content"><h3>Produits</h3><p>Ajouter, modifier ou masquer des produits.</p></div></article>
+      <article class="product"><div class="product-content"><h3>Horaires</h3><p>Mettre à jour les jours et heures d’ouverture.</p></div></article>
+      <article class="product"><div class="product-content"><h3>Précommandes</h3><p>Consulter et suivre les demandes reçues.</p></div></article>
+    </div>
+    <p class="notice">Une version réelle nécessite une authentification serveur et une base de données.</p>
+  </div></section>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div><a class="brand" href="#accueil" style="color:var(--cream)"><span class="brand-icon">♜</span><span>Boucherie<br><small style="font:10px Arial;letter-spacing:2px">ARTISANALE</small></span></a><p>Le goût du vrai, le conseil d’un artisan et l’esprit d’une boucherie de quartier.</p></div>
+      <div class="footer-links"><a href="#produits">Produits</a><a href="#savoir-faire">Savoir-faire</a><a href="#contact">Contact</a><a href="#precommande">Précommande</a><a href="#admin">Admin (démo)</a></div>
+    </div>
+    <div class="copyright">© <span id="year"></span> Boucherie Artisanale — Mentions légales à compléter avant publication.</div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById("navigation");
+document.getElementById("menuToggle").addEventListener("click", () => nav.classList.toggle("open"));
+
+function renderPage() {
+  let id = (location.hash || "#accueil").slice(1);
+  if (!document.getElementById(id)?.classList.contains("page")) id = "accueil";
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.toggle("active", page.id === id);
+  });
+  nav.classList.remove("open");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+window.addEventListener("hashchange", renderPage);
+renderPage();
+
+document.querySelectorAll("#filters button").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll("#filters button").forEach(item => item.classList.remove("active"));
+    button.classList.add("active");
+    document.querySelectorAll("#catalog .product").forEach(card => {
+      card.hidden = !(button.dataset.filter === "all" || card.dataset.category === button.dataset.filter);
+    });
+  });
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Replace this with the shop's real email address before using the forms.
+const SHOP_EMAIL = "";
+
+function openEmail(subject, body) {
+  const url = "mailto:" + SHOP_EMAIL +
+    "?subject=" + encodeURIComponent(subject) +
+    "&body=" + encodeURIComponent(body);
+  window.location.href = url;
+}
+
+document.getElementById("contactForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  document.getElementById("contactSuccess").style.display = "block";
+  openEmail("Message depuis le site — " + data.get("subject"),
+    `Nom : ${data.get("name")}
+E-mail : ${data.get("email")}
+Sujet : ${data.get("subject")}
+
+${data.get("message")}`);
+});
+
+document.getElementById("orderForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  document.getElementById("orderSuccess").style.display = "block";
+  openEmail("Demande de précommande",
+    `Nom : ${data.get("name")}
+Téléphone : ${data.get("phone")}
+E-mail : ${data.get("email") || "Non renseigné"}
+Produits souhaités : ${data.get("items")}
+Date souhaitée : ${data.get("date") || "À convenir"}
+Créneau : ${data.get("time")}
+Précisions : ${data.get("note") || "Aucune"}`);
+});
+</script>
+</body>
+</html>
