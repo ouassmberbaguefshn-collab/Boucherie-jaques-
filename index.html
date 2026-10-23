@@ -1,0 +1,1736 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#581c27">
+  <meta name="description" content="La Boucherie Jaques, votre boucherie traditionnelle au 16 rue Goncourt, Paris 11e. Découvrez nos viandes et préparez votre commande.">
+  <title>La Boucherie Jaques | Boucherie traditionnelle à Paris</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --wine: #581c27;
+      --wine-dark: #351018;
+      --green: #183d30;
+      --cream: #f7f1e6;
+      --paper: #fffdf8;
+      --gold: #c8a66a;
+      --ink: #28241f;
+      --muted: #766e65;
+      --border: #e6ddcf;
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    body.no-scroll {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select, textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .topbar {
+      background: var(--green);
+      color: #f8f0e3;
+      text-align: center;
+      padding: 9px 16px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 253, 248, 0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      max-width: 1240px;
+      margin: auto;
+      padding: 14px 28px;
+      min-height: 83px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      border: 1px solid var(--gold);
+      background: var(--wine);
+      color: var(--cream);
+      display: grid;
+      place-items: center;
+      font-family: var(--serif);
+      font-size: 27px;
+      font-weight: 700;
+    }
+
+    .brand-name {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 1.05;
+      color: var(--wine);
+    }
+
+    .brand-subtitle {
+      margin-top: 5px;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 27px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: var(--wine);
+    }
+
+    .cart-button {
+      border: none;
+      background: var(--wine);
+      color: white;
+      padding: 12px 17px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .cart-count {
+      background: var(--gold);
+      color: var(--wine-dark);
+      min-width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+    }
+
+    .hero {
+      background: var(--wine-dark);
+      color: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 550px;
+    }
+
+    .hero-content {
+      padding: 82px max(35px, calc((100vw - 1200px) / 2));
+      padding-right: 45px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 10px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--serif);
+      font-weight: 600;
+      line-height: 1.08;
+    }
+
+    h1 {
+      font-size: clamp(44px, 5vw, 70px);
+      max-width: 570px;
+    }
+
+    h1 em {
+      color: var(--gold);
+      font-weight: 400;
+    }
+
+    .hero-description {
+      max-width: 430px;
+      margin-top: 24px;
+      color: #e1d4c7;
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 14px 21px;
+      border: 1px solid transparent;
+      font-size: 12px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--wine-dark);
+    }
+
+    .btn-gold:hover {
+      background: #ddc18b;
+    }
+
+    .btn-outline {
+      border-color: rgba(255,255,255,0.45);
+      color: white;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.08);
+    }
+
+    .hero-image {
+      min-height: 420px;
+      position: relative;
+      background: #33231b;
+    }
+
+    .hero-image img {
+      height: 100%;
+      min-height: 420px;
+      position: absolute;
+      inset: 0;
+    }
+
+    .image-label {
+      position: absolute;
+      bottom: 25px;
+      right: 25px;
+      background: var(--cream);
+      color: var(--wine);
+      padding: 16px 22px;
+      font-family: var(--serif);
+      font-size: 19px;
+      font-style: italic;
+    }
+
+    .trust-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--border);
+      background: var(--cream);
+      padding: 25px max(25px, calc((100vw - 1100px) / 2));
+      gap: 22px;
+    }
+
+    .trust-item {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .trust-item span {
+      display: block;
+      color: var(--wine);
+      font-size: 21px;
+      margin-bottom: 5px;
+    }
+
+    .section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 85px 28px;
+    }
+
+    .section-heading {
+      text-align: center;
+      max-width: 620px;
+      margin: 0 auto 42px;
+    }
+
+    .section-heading .eyebrow {
+      color: var(--wine);
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      color: var(--wine);
+      font-size: clamp(36px, 4vw, 49px);
+    }
+
+    .section-heading p {
+      margin-top: 15px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .category-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .category-btn {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--border);
+      padding: 10px 17px;
+      font-size: 12px;
+    }
+
+    .category-btn.active,
+    .category-btn:hover {
+      background: var(--green);
+      color: white;
+      border-color: var(--green);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 25px;
+    }
+
+    .product-card {
+      border: 1px solid var(--border);
+      background: white;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px rgba(53,16,24,0.08);
+    }
+
+    .product-image {
+      height: 220px;
+      background: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      height: 100%;
+      transition: transform 0.4s;
+    }
+
+    .product-card:hover .product-image img {
+      transform: scale(1.04);
+    }
+
+    .product-category {
+      position: absolute;
+      top: 13px;
+      left: 13px;
+      background: var(--cream);
+      color: var(--wine);
+      padding: 6px 10px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    .product-info {
+      padding: 19px;
+    }
+
+    .product-info h3 {
+      font-size: 25px;
+      color: var(--wine);
+    }
+
+    .product-description {
+      font-size: 12px;
+      color: var(--muted);
+      min-height: 40px;
+      margin-top: 8px;
+    }
+
+    .product-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+
+    .product-price {
+      color: var(--wine);
+      font-weight: 700;
+      font-size: 17px;
+    }
+
+    .product-price small {
+      display: block;
+      font-size: 10px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .add-btn {
+      background: var(--green);
+      color: white;
+      border: none;
+      padding: 10px 13px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .add-btn:hover {
+      background: var(--wine);
+    }
+
+    .notice {
+      margin-top: 25px;
+      padding: 14px 17px;
+      border-left: 3px solid var(--gold);
+      background: var(--cream);
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .story {
+      background: var(--green);
+      color: var(--cream);
+    }
+
+    .story-inner {
+      max-width: 1200px;
+      margin: auto;
+      padding: 75px 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 65px;
+    }
+
+    .story-image {
+      height: 400px;
+      background: #e2d7c5;
+    }
+
+    .story-image img {
+      height: 100%;
+    }
+
+    .story h2 {
+      color: var(--cream);
+      font-size: clamp(36px, 4vw, 48px);
+    }
+
+    .story .eyebrow {
+      margin-bottom: 14px;
+    }
+
+    .story p {
+      color: #d4dfd5;
+      font-size: 13px;
+      line-height: 1.9;
+      margin-top: 20px;
+    }
+
+    .story .btn {
+      margin-top: 26px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .info-card {
+      padding: 32px;
+      background: var(--cream);
+      border: 1px solid var(--border);
+    }
+
+    .info-card h3 {
+      font-size: 30px;
+      color: var(--wine);
+      margin-bottom: 20px;
+    }
+
+    .info-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+    }
+
+    .info-line:last-child {
+      border-bottom: none;
+    }
+
+    .info-line span:first-child {
+      color: var(--muted);
+    }
+
+    .info-line strong {
+      text-align: right;
+    }
+
+    .contact-callout {
+      margin-top: 25px;
+      padding: 24px;
+      background: var(--wine);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .contact-callout p {
+      color: #eadbd3;
+      font-size: 12px;
+    }
+
+    .contact-callout a {
+      font-weight: 700;
+      font-size: 17px;
+    }
+
+    footer {
+      background: var(--wine-dark);
+      color: var(--cream);
+      padding: 48px 28px 22px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+    }
+
+    footer .brand-name {
+      color: var(--cream);
+    }
+
+    footer .brand-subtitle {
+      color: #d3bfae;
+    }
+
+    .footer-text {
+      margin-top: 18px;
+      max-width: 350px;
+      color: #d4c3b7;
+      font-size: 12px;
+    }
+
+    .footer-col h3 {
+      color: var(--gold);
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    .footer-col a,
+    .footer-col p {
+      display: block;
+      color: #e6d9cd;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 35px auto 0;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      color: #bba89b;
+      font-size: 10px;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    /* PANIER */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      background: rgba(20, 10, 10, 0.55);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.25s;
+    }
+
+    .overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .cart-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 41;
+      width: min(460px, 100%);
+      background: var(--paper);
+      transform: translateX(100%);
+      transition: transform 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cart-panel.open {
+      transform: translateX(0);
+    }
+
+    .cart-header {
+      padding: 23px;
+      background: var(--wine);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cart-header h2 {
+      color: white;
+      font-size: 30px;
+    }
+
+    .close-cart {
+      border: 1px solid rgba(255,255,255,0.4);
+      background: transparent;
+      color: white;
+      width: 38px;
+      height: 38px;
+      font-size: 23px;
+    }
+
+    .cart-items {
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .empty-cart {
+      text-align: center;
+      color: var(--muted);
+      padding: 50px 10px;
+      font-size: 13px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cart-item h4 {
+      color: var(--wine);
+      font-family: var(--serif);
+      font-size: 22px;
+    }
+
+    .cart-item p {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 9px;
+    }
+
+    .quantity-controls button {
+      width: 27px;
+      height: 27px;
+      border: 1px solid var(--border);
+      background: white;
+    }
+
+    .remove-item {
+      background: transparent;
+      border: none;
+      color: var(--wine);
+      font-size: 11px;
+      text-decoration: underline;
+      margin-top: 7px;
+    }
+
+    .cart-footer {
+      padding: 20px;
+      border-top: 1px solid var(--border);
+      background: white;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      color: var(--wine);
+      margin-bottom: 15px;
+    }
+
+    .cart-footer .btn {
+      width: 100%;
+      border: none;
+    }
+
+    /* FORMULAIRE */
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      background: rgba(20, 10, 10, 0.65);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.2s;
+    }
+
+    .modal.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-box {
+      width: min(540px, 100%);
+      max-height: 92vh;
+      overflow-y: auto;
+      background: var(--paper);
+      padding: 28px;
+    }
+
+    .modal-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      align-items: flex-start;
+      margin-bottom: 22px;
+    }
+
+    .modal-heading h2 {
+      font-size: 34px;
+    }
+
+    .modal-heading p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .close-modal {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--wine);
+      width: 35px;
+      height: 35px;
+      flex-shrink: 0;
+      font-size: 22px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--wine);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      padding: 12px;
+      background: white;
+      color: var(--ink);
+      outline-color: var(--gold);
+      font-size: 13px;
+    }
+
+    .form-group textarea {
+      min-height: 75px;
+      resize: vertical;
+    }
+
+    .form-note {
+      background: var(--cream);
+      padding: 12px;
+      color: var(--muted);
+      font-size: 11px;
+      margin: 15px 0;
+    }
+
+    .form-error {
+      color: #a11c2b;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .form-success {
+      background: #e4f1e6;
+      color: #183d30;
+      padding: 15px;
+      margin-top: 15px;
+      font-size: 12px;
+      display: none;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translate(-50%, 20px);
+      z-index: 80;
+      padding: 13px 20px;
+      background: var(--green);
+      color: white;
+      font-size: 12px;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.2s;
+      max-width: calc(100% - 30px);
+      text-align: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 850px) {
+      .nav {
+        padding: 12px 18px;
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        gap: 20px;
+        padding: 8px 0 3px;
+        border-top: 1px solid var(--border);
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-content {
+        padding: 65px 28px;
+      }
+
+      .hero-image,
+      .hero-image img {
+        min-height: 330px;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .story-inner {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .story-image {
+        height: 330px;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-inner > div:first-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .topbar {
+        font-size: 9px;
+        letter-spacing: 1px;
+      }
+
+      .brand-mark {
+        width: 40px;
+        height: 40px;
+        font-size: 23px;
+      }
+
+      .brand-name {
+        font-size: 21px;
+      }
+
+      .brand-subtitle {
+        font-size: 8px;
+        letter-spacing: 1.3px;
+      }
+
+      .cart-button {
+        padding: 10px 11px;
+        font-size: 11px;
+      }
+
+      .nav-links {
+        gap: 15px;
+        font-size: 11px;
+      }
+
+      .hero-content {
+        padding: 52px 22px;
+      }
+
+      h1 {
+        font-size: 47px;
+      }
+
+      .hero-description {
+        font-size: 13px;
+      }
+
+      .trust-strip {
+        padding: 20px 10px;
+        gap: 7px;
+      }
+
+      .trust-item {
+        font-size: 9px;
+        letter-spacing: 0.4px;
+      }
+
+      .trust-item span {
+        font-size: 18px;
+      }
+
+      .section {
+        padding: 60px 17px;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .product-image {
+        height: 245px;
+      }
+
+      .story-inner {
+        padding: 55px 20px;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .info-card {
+        padding: 24px 19px;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .footer-inner > div:first-child {
+        grid-column: auto;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+      }
+
+      .contact-callout {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    Boucherie traditionnelle · Paris 11e · Retrouvez-nous rue Goncourt
+  </div>
+
+  <header>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#accueil" class="brand" aria-label="La Boucherie Jaques, accueil">
+        <div class="brand-mark">J</div>
+        <div>
+          <div class="brand-name">La Boucherie Jaques</div>
+          <div class="brand-subtitle">Boucherie traditionnelle</div>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a href="#accueil">Accueil</a>
+        <a href="#produits">Nos produits</a>
+        <a href="#maison">La maison</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <button class="cart-button" id="openCart" type="button">
+        Panier <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="accueil">
+      <div class="hero-content">
+        <div class="eyebrow">Le goût des bonnes choses</div>
+        <h1>La tradition bouchère, <em>avec caractère.</em></h1>
+        <p class="hero-description">
+          Bienvenue à La Boucherie Jaques, au cœur du 11e arrondissement
+          de Paris. Retrouvez une sélection de viandes et préparez votre
+          commande avant de passer en boutique.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="#produits">Découvrir nos produits ↗</a>
+          <a class="btn btn-outline" href="#contact">Nous trouver</a>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <img
+          src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=1200&q=85"
+          alt="Sélection de viande fraîche chez le boucher"
+          fetchpriority="high"
+        >
+        <div class="image-label">Le savoir-faire du boucher</div>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Nos engagements">
+      <div class="trust-item"><span>✦</span>Tradition bouchère</div>
+      <div class="trust-item"><span>❖</span>Conseils en boutique</div>
+      <div class="trust-item"><span>⌂</span>Au cœur de Paris 11e</div>
+    </section>
+
+    <section class="section" id="produits">
+      <div class="section-heading">
+        <div class="eyebrow">La sélection de la maison</div>
+        <h2>Nos produits</h2>
+        <p>
+          Découvrez quelques produits proposés à titre indicatif.
+          Les disponibilités et les prix sont à confirmer directement en boutique.
+        </p>
+      </div>
+
+      <div class="category-row" id="categoryFilters">
+        <button class="category-btn active" data-category="Tous" type="button">Tout voir</button>
+        <button class="category-btn" data-category="Bœuf" type="button">Bœuf</button>
+        <button class="category-btn" data-category="Veau" type="button">Veau</button>
+        <button class="category-btn" data-category="Agneau" type="button">Agneau</button>
+        <button class="category-btn" data-category="Volaille" type="button">Volaille</button>
+        <button class="category-btn" data-category="Préparations" type="button">Préparations</button>
+      </div>
+
+      <div class="product-grid" id="productGrid"></div>
+
+      <div class="notice">
+        <strong>Information :</strong> les produits, prix et photos présentés
+        sont des exemples de démonstration. Ils doivent être vérifiés et adaptés
+        par la boucherie avant la mise en ligne définitive.
+      </div>
+    </section>
+
+    <section class="story" id="maison">
+      <div class="story-inner">
+        <div class="story-image">
+          <img
+            src="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=1000&q=85"
+            alt="Pièce de viande soigneusement préparée"
+            loading="lazy"
+          >
+        </div>
+        <div>
+          <div class="eyebrow">Une adresse de quartier</div>
+          <h2>La passion du métier, le goût du partage.</h2>
+          <p>
+            La Boucherie Jaques vous accueille rue Goncourt, dans le 11e
+            arrondissement de Paris. Notre ambition : vous aider à choisir
+            les bonnes pièces et à préparer vos repas en toute simplicité.
+          </p>
+          <p>
+            Une question sur un morceau, une cuisson ou la quantité à prévoir ?
+            Passez nous voir ou appelez-nous : nous serons heureux de vous renseigner.
+          </p>
+          <a class="btn btn-gold" href="tel:+33143571129">Nous appeler ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="section-heading">
+        <div class="eyebrow">Venez nous rencontrer</div>
+        <h2>La boutique</h2>
+        <p>Toutes les informations pour nous rendre visite et préparer votre passage.</p>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Nos horaires</h3>
+          <div class="info-line"><span>Lundi</span><strong>Fermé</strong></div>
+          <div class="info-line"><span>Mardi</span><strong>08 h – 20 h</strong></div>
+          <div class="info-line"><span>Mercredi</span><strong>08 h – 20 h</strong></div>
+          <div class="info-line"><span>Jeudi</span><strong>08 h – 20 h</strong></div>
+          <div class="info-line"><span>Vendredi</span><strong>08 h – 20 h</strong></div>
+          <div class="info-line"><span>Samedi</span><strong>08 h – 20 h</strong></div>
+          <div class="info-line"><span>Dimanche</span><strong>08 h – 15 h</strong></div>
+        </div>
+
+        <div class="info-card">
+          <h3>Nous trouver</h3>
+          <div class="info-line">
+            <span>Adresse</span>
+            <strong>16 rue Goncourt<br>75011 Paris</strong>
+          </div>
+          <div class="info-line">
+            <span>Téléphone</span>
+            <strong><a href="tel:+33143571129">01 43 57 11 29</a></strong>
+          </div>
+          <div class="info-line">
+            <span>Quartier</span>
+            <strong>Paris 11e</strong>
+          </div>
+          <div class="contact-callout">
+            <div>
+              <p>Une question avant de venir ?</p>
+              <a href="tel:+33143571129">01 43 57 11 29</a>
+            </div>
+            <a class="btn btn-gold"
+               href="https://www.google.com/maps/search/?api=1&query=16+rue+Goncourt+75011+Paris"
+               target="_blank" rel="noopener noreferrer">
+              Itinéraire ↗
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <a href="#accueil" class="brand">
+          <div class="brand-mark">J</div>
+          <div>
+            <div class="brand-name">La Boucherie Jaques</div>
+            <div class="brand-subtitle">Boucherie traditionnelle</div>
+          </div>
+        </a>
+        <p class="footer-text">
+          Votre boucherie de quartier au 16 rue Goncourt,
+          Paris 11e. Nous vous accueillons du mardi au dimanche.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Navigation</h3>
+        <a href="#accueil">Accueil</a>
+        <a href="#produits">Nos produits</a>
+        <a href="#maison">La maison</a>
+        <a href="#contact">Contact et horaires</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>La boutique</h3>
+        <p>16 rue Goncourt</p>
+        <p>75011 Paris, France</p>
+        <a href="tel:+33143571129">01 43 57 11 29</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="currentYear"></span> La Boucherie Jaques. Tous droits réservés.</span>
+      <span>Site vitrine · Paris 11e</span>
+    </div>
+  </footer>
+
+  <!-- PANIER -->
+  <div class="overlay" id="overlay"></div>
+
+  <aside class="cart-panel" id="cartPanel" aria-label="Votre panier" aria-hidden="true">
+    <div class="cart-header">
+      <h2>Votre panier</h2>
+      <button class="close-cart" id="closeCart" type="button" aria-label="Fermer">×</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total indicatif</span>
+        <span id="cartTotal">0,00 €</span>
+      </div>
+      <button class="btn btn-gold" id="checkoutBtn" type="button">
+        Préparer ma demande de commande
+      </button>
+      <p style="font-size:10px;color:#766e65;margin-top:10px;">
+        Le montant définitif et la disponibilité sont à confirmer par la boutique.
+      </p>
+    </div>
+  </aside>
+
+  <!-- FORMULAIRE DE PRÉCOMMANDE -->
+  <div class="modal" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+    <div class="modal-box">
+      <div class="modal-heading">
+        <div>
+          <h2 id="checkoutTitle">Précommande</h2>
+          <p>Renseignez vos coordonnées pour préparer votre demande.</p>
+        </div>
+        <button class="close-modal" id="closeModal" type="button" aria-label="Fermer">×</button>
+      </div>
+
+      <form id="orderForm">
+        <div class="form-group">
+          <label for="customerName">Nom et prénom *</label>
+          <input id="customerName" name="customerName" required minlength="2" maxlength="100" autocomplete="name">
+        </div>
+
+        <div class="form-group">
+          <label for="customerPhone">Téléphone *</label>
+          <input id="customerPhone" name="customerPhone" type="tel" required minlength="6" maxlength="30" autocomplete="tel">
+        </div>
+
+        <div class="form-group">
+          <label for="customerEmail">Adresse e-mail (facultatif)</label>
+          <input id="customerEmail" name="customerEmail" type="email" maxlength="150" autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label for="pickupDate">Date de retrait souhaitée</label>
+          <input id="pickupDate" name="pickupDate" type="date">
+        </div>
+
+        <div class="form-group">
+          <label for="orderNotes">Précisions (facultatif)</label>
+          <textarea id="orderNotes" name="orderNotes" maxlength="1000" placeholder="Quantités, découpe souhaitée, questions..."></textarea>
+        </div>
+
+        <div class="form-note">
+          Cette version de démonstration prépare un récapitulatif à transmettre
+          par WhatsApp. La commande n'est pas envoyée automatiquement à la boutique.
+        </div>
+
+        <p class="form-error" id="formError" role="alert"></p>
+
+        <button class="btn btn-gold" style="width:100%;border:0;" type="submit">
+          Préparer le récapitulatif
+        </button>
+
+        <div class="form-success" id="formSuccess" role="status"></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    "use strict";
+
+    // Produits de démonstration : vérifier les prix et disponibilités
+    // avec la boutique avant toute mise en ligne définitive.
+    const products = [
+      {
+        id: 1,
+        name: "Entrecôte de bœuf",
+        category: "Bœuf",
+        description: "Une pièce généreuse, idéale à griller.",
+        price: 29.90,
+        unit: "kg",
+        image: "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        id: 2,
+        name: "Bavette de bœuf",
+        category: "Bœuf",
+        description: "Une viande savoureuse, parfaite à la poêle.",
+        price: 24.90,
+        unit: "kg",
+        image: "https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        id: 3,
+        name: "Filet de bœuf",
+        category: "Bœuf",
+        description: "Une pièce tendre pour les belles occasions.",
+        price: 39.90,
+        unit: "kg",
+        image: "https://images.unsplash.com/photo-1603048297172-c92544798d5a?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        id: 4,
+        name: "Escalopes de veau",
+        category: "Veau",
+        description: "Fines et délicates, faciles à cuisiner.",
+        price: 27.90,
+        unit: "kg",
+        image: "https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        id: 5,
+        name: "Côtelettes d'agneau",
+        category: "Agneau",
+        description: "À griller pour un repas plein de caractère.",
+        price: 26.90,
+        unit: "kg",
+        image: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        id: 6,
+        name: "Poulet fermier",
+        category: "Volaille",
+        description: "Une volaille à rôtir pour un repas convivial.",
+        price: 12.90,
+        unit: "kg",
+        image: "https://images.unsplash.com/photo-1587593810167-a84920ea0781?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        id: 7,
+        name: "Brochettes de bœuf",
+        category: "Préparations",
+        description: "Prêtes à cuire pour vos grillades.",
+        price: 22.90,
+        unit: "kg",
+        image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        id: 8,
+        name: "Saucisses artisanales",
+        category: "Préparations",
+        description: "Une idée simple pour vos repas en famille.",
+        price: 15.90,
+        unit: "kg",
+        image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=80"
+      },
+      {
+        id: 9,
+        name: "Rôti de veau",
+        category: "Veau",
+        description: "À préparer doucement au four.",
+        price: 25.90,
+        unit: "kg",
+        image: "https://images.unsplash.com/photo-1432139555190-58524dae6a55?auto=format&fit=crop&w=700&q=80"
+      }
+    ];
+
+    const state = {
+      category: "Tous",
+      cart: {}
+    };
+
+    const $ = (selector) => document.querySelector(selector);
+
+    const productGrid = $("#productGrid");
+    const cartPanel = $("#cartPanel");
+    const overlay = $("#overlay");
+    const checkoutModal = $("#checkoutModal");
+
+    function formatPrice(value) {
+      return value.toLocaleString("fr-FR", {
+        style: "currency",
+        currency: "EUR"
+      });
+    }
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    function renderProducts() {
+      const visibleProducts = products.filter(product =>
+        state.category === "Tous" || product.category === state.category
+      );
+
+      productGrid.innerHTML = visibleProducts.map(product => `
+        <article class="product-card">
+          <div class="product-image">
+            <img
+              src="${product.image}"
+              alt="${escapeHTML(product.name)}"
+              loading="lazy"
+            >
+            <span class="product-category">${escapeHTML(product.category)}</span>
+          </div>
+          <div class="product-info">
+            <h3>${escapeHTML(product.name)}</h3>
+            <p class="product-description">${escapeHTML(product.description)}</p>
+            <div class="product-bottom">
+              <div class="product-price">
+                ${formatPrice(product.price)}
+                <small>par ${escapeHTML(product.unit)} · prix indicatif</small>
+              </div>
+              <button class="add-btn" type="button" data-add="${product.id}">
+                + Ajouter
+              </button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function showToast(message) {
+      const toast = $("#toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      window.clearTimeout(showToast.timeout);
+      showToast.timeout = window.setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2500);
+    }
+
+    function addToCart(productId) {
+      const product = products.find(item => item.id === productId);
+      if (!product) return;
+
+      if (!state.cart[productId]) {
+        state.cart[productId] = 0;
+      }
+
+      state.cart[productId] += 1;
+      renderCart();
+      showToast(product.name + " ajouté au panier");
+    }
+
+    function getCartItems() {
+      return Object.entries(state.cart)
+        .filter(([, quantity]) => quantity > 0)
+        .map(([id, quantity]) => {
+          const product = products.find(item => item.id === Number(id));
+          return product ? { ...product, quantity } : null;
+        })
+        .filter(Boolean);
+    }
+
+    function getCartTotal() {
+      return getCartItems().reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      );
+    }
+
+    function renderCart() {
+      const items = getCartItems();
+      const count = items.reduce((total, item) => total + item.quantity, 0);
+
+      $("#cartCount").textContent = count;
+      $("#cartTotal").textContent = formatPrice(getCartTotal());
+
+      if (items.length === 0) {
+        $("#cartItems").innerHTML = `
+          <div class="empty-cart">
+            <p style="font-size:30px;margin-bottom:12px;">♧</p>
+            <p>Votre panier est encore vide.</p>
+            <p style="margin-top:8px;">Ajoutez quelques produits pour commencer.</p>
+          </div>
+        `;
+        return;
+      }
+
+      $("#cartItems").innerHTML = items.map(item => `
+        <div class="cart-item">
+          <div>
+            <h4>${escapeHTML(item.name)}</h4>
+            <p>${formatPrice(item.price)} / ${escapeHTML(item.unit)}</p>
+            <div class="quantity-controls">
+              <button type="button" data-minus="${item.id}" aria-label="Diminuer la quantité">−</button>
+              <span>${item.quantity}</span>
+              <button type="button" data-plus="${item.id}" aria-label="Augmenter la quantité">+</button>
+            </div>
+            <button class="remove-item" type="button" data-remove="${item.id}">Retirer</button>
+          </div>
+          <strong>${formatPrice(item.price * item.quantity)}</strong>
+        </div>
+      `).join("");
+    }
+
+    function changeQuantity(productId, amount) {
+      if (!state.cart[productId]) return;
+
+      state.cart[productId] += amount;
+
+      if (state.cart[productId] <= 0) {
+        delete state.cart[productId];
+      }
+
+      renderCart();
+    }
+
+    function openCart() {
+      cartPanel.classList.add("open");
+      overlay.classList.add("open");
+      cartPanel.setAttribute("aria-hidden", "false");
+      document.body.classList.add("no-scroll");
+      $("#closeCart").focus();
+    }
+
+    function closeCart() {
+      cartPanel.classList.remove("open");
+      overlay.classList.remove("open");
+      cartPanel.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("no-scroll");
+    }
+
+    function openCheckout() {
+      if (getCartItems().length === 0) {
+        showToast("Ajoutez d'abord un produit au panier.");
+        return;
+      }
+
+      closeCart();
+      checkoutModal.classList.add("open");
+      document.body.classList.add("no-scroll");
+      $("#customerName").focus();
+    }
+
+    function closeCheckout() {
+      checkoutModal.classList.remove("open");
+      document.body.classList.remove("no-scroll");
+    }
+
+    function getMinimumPickupDate() {
+      const now = new Date();
+      const localDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+      return localDate.toISOString().slice(0, 10);
+    }
+
+    // Filtrage des catégories
+    $("#categoryFilters").addEventListener("click", event => {
+      const button = event.target.closest("[data-category]");
+      if (!button) return;
+
+      state.category = button.dataset.category;
+
+      document.querySelectorAll(".category-btn").forEach(item => {
+        item.classList.toggle("active", item === button);
+      });
+
+      renderProducts();
+    });
+
+    // Ajouter au panier
+    productGrid.addEventListener("click", event => {
+      const button = event.target.closest("[data-add]");
+      if (!button) return;
+      addToCart(Number(button.dataset.add));
+    });
+
+    // Quantités et suppression
+    $("#cartItems").addEventListener("click", event => {
+      const plus = event.target.closest("[data-plus]");
+      const minus = event.target.closest("[data-minus]");
+      const remove = event.target.closest("[data-remove]");
+
+      if (plus) changeQuantity(Number(plus.dataset.plus), 1);
+      if (minus) changeQuantity(Number(minus.dataset.minus), -1);
+
+      if (remove) {
+        delete state.cart[Number(remove.dataset.remove)];
+        renderCart();
+      }
+    });
+
+    $("#openCart").addEventListener("click", openCart);
+    $("#closeCart").addEventListener("click", closeCart);
+    $("#checkoutBtn").addEventListener("click", openCheckout);
+    $("#closeModal").addEventListener("click", closeCheckout);
+
+    overlay.addEventListener("click", closeCart);
+
+    checkoutModal.addEventListener("click", event => {
+      if (event.target === checkoutModal) closeCheckout();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        closeCart();
+        closeCheckout();
+      }
+    });
+
+    // Préparer le récapitulatif de commande
+    $("#orderForm").addEventListener("submit", event => {
+      event.preventDefault();
+
+      const error = $("#formError");
+      const success = $("#formSuccess");
+      error.textContent = "";
+      success.style.display = "none";
+
+      const name = $("#customerName").value.trim();
+      const phone = $("#customerPhone").value.trim();
+      const email = $("#customerEmail").value.trim();
+      const pickupDate = $("#pickupDate").value;
+      const notes = $("#orderNotes").value.trim();
+      const items = getCartItems();
+
+      if (name.length < 2 || phone.length < 6) {
+        error.textContent = "Veuillez vérifier votre nom et votre numéro de téléphone.";
+        return;
+      }
+
+      if (items.length === 0) {
+        error.textContent = "Votre panier est vide.";
+        return;
+      }
+
+      const lines = items.map(item =>
+        "- " + item.name +
+        " : " + item.quantity +
+        " × " + item.unit +
+        " (" + formatPrice(item.price * item.quantity) + " indicatif)"
+      );
+
+      const message = [
+        "Bonjour La Boucherie Jaques,",
+        "",
+        "Je souhaite vous transmettre une demande de précommande.",
+        "",
+        "Nom : " + name,
+        "Téléphone : " + phone,
+        email ? "E-mail : " + email : "",
+        pickupDate ? "Date de retrait souhaitée : " + pickupDate : "",
+        "",
+        "Produits demandés :",
+        ...lines,
+        "",
+        "Total indicatif : " + formatPrice(getCartTotal()),
+        notes ? "" : "",
+        notes ? "Précisions : " + notes : "",
+        "",
+        "Merci de me confirmer la disponibilité et le montant définitif."
+      ].filter(line => line !== "").join("\n");
+
+      success.innerHTML = "";
+      success.style.display = "block";
+
+      const explanation = document.createElement("p");
+      explanation.textContent =
+        "Votre récapitulatif est prêt. Appuyez sur le bouton ci-dessous pour l'envoyer à la boutique sur WhatsApp. La demande ne sera transmise qu'après votre confirmation.";
+      success.appendChild(explanation);
+
+      const whatsappLink = document.createElement("a");
+      whatsappLink.className = "btn btn-gold";
+      whatsappLink.style.marginTop = "12px";
+      whatsappLink.style.width = "100%";
+      whatsappLink.style.textAlign = "center";
+      whatsappLink.href =
+        "https://wa.me/33143571129?text=" + encodeURIComponent(message);
+      whatsappLink.target = "_blank";
+      whatsappLink.rel = "noopener noreferrer";
+      whatsappLink.textContent = "Ouvrir WhatsApp pour envoyer";
+      success.appendChild(whatsappLink);
+    });
+
+    // Initialisation
+    $("#currentYear").textContent = new Date().getFullYear();
+    $("#pickupDate").min = getMinimumPickupDate();
+
+    renderProducts();
+    renderCart();
+  </script>
+</body>
+</html>
